@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 import com.example.n2m.myapplication.R;
+import com.example.n2m.myapplication.adapter.LoaispAdapter;
+import com.example.n2m.myapplication.model.Loaisp;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,39 +28,34 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // MyCode
-
-        DrawerLayout drawerLayout ;
+    DrawerLayout drawer;
+    Toolbar toolbar ;
+    NavigationView navigationView;
+    DrawerLayout drawerLayout ;
         ViewFlipper viewlipper;
+        ArrayList<Loaisp> mangloaisp;
+        LoaispAdapter loaispAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        // My code
+        InitView();
+        InitButton();
+
         setSupportActionBar(toolbar);
 
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // My code
-        InitView();
-        InitButton();
         ActionBar();
         ActionViewFripper(); 
-
-
-
-
-
-
 
 
     }
@@ -89,8 +86,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void InitView() {
+        drawer= (DrawerLayout) findViewById(R.id.drawer_layout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         drawerLayout  = (DrawerLayout) findViewById(R.id.drawerlayout);
         viewlipper = (ViewFlipper) findViewById(R.id.viewlipper);
+        mangloaisp = new ArrayList<>();
+        loaispAdapter = new LoaispAdapter(mangloaisp, getApplicationContext());
+
     }
 
     private void ActionBar() {
